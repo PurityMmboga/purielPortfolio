@@ -28,7 +28,7 @@ function Contact() {
     setStatus({ ...status, submitting: true, error: false, message: '' });
 
     try {
-      // REPLACE THESE WITH YOUR ACTUAL VALUES
+     
       const serviceId = 'service_a74i10t'; 
       const templateId = 'template_qm3bbrh';
       const publicKey = 'thAH-3wUJtwdWywpJ'; 
@@ -38,7 +38,7 @@ function Contact() {
         from_email: formData.email,
         message: formData.message,
         reply_to: formData.email,
-        to_name: 'Purity' // Your name
+        to_name: 'Purity Mmboga' 
       };
 
       const response = await emailjs.send(
@@ -99,7 +99,7 @@ function Contact() {
               <h4>Find me on</h4>
               <div className="social-icons">
                 <a href="https://github.com/PurityMmboga" target="_blank" rel="noopener noreferrer" className="social-icon">GitHub</a>
-                <a href="https://linkedin.com/in/purity-mmboga" target="_blank" rel="noopener noreferrer" className="social-icon">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/purity-mmboga-1947682b9/" target="_blank" rel="noopener noreferrer" className="social-icon">LinkedIn</a>
                 <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="social-icon">Twitter</a>
               </div>
             </div>
