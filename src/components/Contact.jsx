@@ -27,11 +27,16 @@ function Contact() {
     e.preventDefault();
     setStatus({ ...status, submitting: true, error: false, message: '' });
 
-    try {
-     
-      const serviceId = 'service_a74i10t'; 
-      const templateId = 'template_qm3bbrh';
-      const publicKey = 'thAH-3wUJtwdWywpJ'; 
+     try {
+      // Read from environment variables (Vite format)
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      // Check if variables are loaded (for debugging)
+      console.log('Service ID:', serviceId);
+      console.log('Template ID:', templateId);
+      console.log('Public Key:', publicKey); 
 
       const templateParams = {
         from_name: formData.name,
