@@ -13,7 +13,7 @@ function Hero() {
           <h2>Software Developer</h2>
           <p>
             I build exceptional digital experiences that make a difference. 
-            Passionate about creating beautiful and functional web applications.
+            Passionate about creating beautiful and functional web applications and mobile applications.
           </p>
           <div className="hero-buttons">
             <a href="#projects" className="btn btn-primary">

@@ -3,8 +3,8 @@ import React from 'react';
 function About() {
   const skills = [
     'React', 'JavaScript', 'Node.js', 'Python', 
-    'MongoDB', 'Git', 'HTML5', 'CSS3', 
-    'Express', 'REST APIs', 'Tailwind CSS', 'Figma'
+    'MySQL', 'Git', 'HTML5', 'CSS3', 
+    'Express', 'Java', 'Figma'
   ];
 
   return (
@@ -14,8 +14,8 @@ function About() {
         <div className="about-content">
           <div className="about-text">
             <p>
-              Hi! I'm Puriel, a passionate Full Stack Developer with a love for creating 
-              beautiful and functional web applications. I enjoy solving complex problems 
+              Hi! I'm Puriel, a passionate Software Developer with a love for creating 
+              beautiful and functional web and Mobile applications. I enjoy solving complex problems 
               and turning ideas into reality through code.
             </p>
             <p>

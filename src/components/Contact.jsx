@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 function Contact() {
+  const formRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,24 +28,27 @@ function Contact() {
     setStatus({ ...status, submitting: true, error: false, message: '' });
 
     try {
-      // Using FormSubmit.co - free service that sends emails to your inbox
-      const response = await fetch('https://formsubmit.co/ajax/your-email@example.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _template: 'table'
-        })
-      });
+      // REPLACE THESE WITH YOUR ACTUAL VALUES
+      const serviceId = 'service_a74i10t'; 
+      const templateId = 'template_qm3bbrh';
+      const publicKey = 'thAH-3wUJtwdWywpJ'; 
 
-      const data = await response.json();
-      
-      if (data.success === 'true' || data.success === true) {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        reply_to: formData.email,
+        to_name: 'Purity' // Your name
+      };
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (response.status === 200) {
         setStatus({
           submitted: true,
           submitting: false,
@@ -51,20 +56,14 @@ function Contact() {
           message: 'Thank you! Your message has been sent successfully.'
         });
         setFormData({ name: '', email: '', message: '' });
-      } else {
-        setStatus({
-          submitted: false,
-          submitting: false,
-          error: true,
-          message: 'Something went wrong. Please try again.'
-        });
       }
     } catch (error) {
+      console.error('EmailJS Error:', error);
       setStatus({
         submitted: false,
         submitting: false,
         error: true,
-        message: 'Network error. Please check your connection and try again.'
+        message: 'Failed to send. Please try again later.'
       });
     }
   };
@@ -84,7 +83,7 @@ function Contact() {
             <div className="contact-details">
               <p>
                 <span className="contact-icon">📧</span>
-                <a href="mailto:your-email@example.com">pmmboga2022@gmail.com</a>
+                <a href="mailto:pmmboga2022@gmail.com">pmmboga2022@gmail.com</a>
               </p>
               <p>
                 <span className="contact-icon">📱</span>
@@ -99,30 +98,9 @@ function Contact() {
             <div className="social-links-contact">
               <h4>Find me on</h4>
               <div className="social-icons">
-                <a 
-                  href="https://github.com/Purity Mmboga" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                >
-                  GitHub
-                </a>
-                <a 
-                  href="https://linkedin.com/in/Purity MMboga" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                >
-                  LinkedIn
-                </a>
-                <a 
-                  href="https://twitter.com/yourusername" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                >
-                  Twitter
-                </a>
+                <a href="https://github.com/PurityMmboga" target="_blank" rel="noopener noreferrer" className="social-icon">GitHub</a>
+                <a href="https://linkedin.com/in/purity-mmboga" target="_blank" rel="noopener noreferrer" className="social-icon">LinkedIn</a>
+                <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="social-icon">Twitter</a>
               </div>
             </div>
           </div>
@@ -140,7 +118,7 @@ function Contact() {
                 </button>
               </div>
             ) : (
-              <form className="contact-form" onSubmit={handleSubmit}>
+              <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
                 <h3>Send me a message</h3>
                 
                 {status.error && (
@@ -155,7 +133,7 @@ function Contact() {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Purity Mmboga"
+                    placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -168,7 +146,7 @@ function Contact() {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="pmmboga2022@gmail.com"
+                    placeholder="Your Email"
                     value={formData.email}
                     onChange={handleChange}
                     required
